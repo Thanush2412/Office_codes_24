@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Invitation - Janaka & Jamuna</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700&family=Cormorant+Garamond:wght@400;600&display=swap');
+
+        /* Root Variables */
+        :root {
+            --primary: #FF1493;
+            --secondary: #9400D3;
+            --accent: #FF69B4;
+            --light: #eed6d6;
+            --dark: #4A0404;
+            --gold: #FFD700;
+            
+        }
+       
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+           
+
+        }
+        
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes gradientFlow {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .countdown-section {
+            margin: 20px 0;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(255, 20, 147, 0.1), rgba(148, 0, 211, 0.1));
+            border-radius: 15px;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .countdown-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .countdown-item {
+            text-align: center;
+            min-width: 80px;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .countdown-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .countdown-label {
+            font-size: 0.9em;
+            color: var(--dark);
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 768px) {
+            .countdown-container {
+                gap: 10px;
+            }
+
+            .countdown-item {
+                min-width: 60px;
+                padding: 10px;
+            }
+
+            .countdown-number {
+                font-size: 1.5em;
+            }
+
+            .countdown-label {
+                font-size: 0.8em;
+            }
+        }
+
+        /* Base Styles */
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            line-height: 1.6;
+            background: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        /* Card Container */
+        .card-container {
+            max-width: 900px;
+            margin: 20px auto;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Header Styles */
+        .card-header {
+            background: linear-gradient(-45deg, var(--primary), var(--secondary), var(--accent), var(--gold));
+            background-size: 400% 400%;
+            animation: gradientFlow 15s ease infinite;
+            padding: 60px 40px;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .names {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 2s ease-out;
+        }
+
+        .invitation-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5em;
+            margin-bottom: 30px;
+            animation: slideUp 1.5s ease-out;
+        }
+
+        /* Content Styles */
+        .card-content {
+            padding: 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        /* Date Section */
+        .date-section {
+            margin: 40px 0;
+            padding: 30px;
+            border: 2px solid var(--accent);
+            border-radius: 15px;
+            background: rgba(255, 105, 180, 0.05);
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .date-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2em;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        /* Events Section */
+        .events-section {
+            display: flex;
+            justify-content: space-around;
+            margin: 40px 0;
+            gap: 30px;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .event-card {
+            flex: 1;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transform: translateY(50px);
+            opacity: 0;
+            animation: slideUp 1s ease-out forwards;
+            transition: transform 0.3s ease;
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .event-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8em;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        /* RSVP Button */
+        .rsvp-button {
+            display: inline-block;
+            padding: 15px 40px;
+            margin: 30px 0;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 1.2em;
+            font-family: 'Playfair Display', serif;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 20, 147, 0.3);
+            animation: pulse 2s infinite;
+            border: none;
+            cursor: pointer;
+        }
+
+        .rsvp-button:hover {
+            background: var(--secondary);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Venue Section */
+        .venue-section {
+            background: linear-gradient(135deg, rgba(255, 20, 147, 0.1), rgba(148, 0, 211, 0.1));
+            padding: 3rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            animation: fadeIn 1.5s ease-out;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .venue-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8em;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .venue-address {
+            font-size: 1.2em;
+            color: var(--dark);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            position: relative;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--dark);
+        }
+
+        .calendar-button {
+            display: inline-block;
+            padding: 12px 25px;
+            margin: 10px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .calendar-button:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .card-container {
+                margin: 10px;
+            }
+
+            .names {
+                font-size: 3em;
+            }
+
+            .invitation-text {
+                font-size: 1.2em;
+            }
+
+            .events-section {
+                flex-direction: column;
+            }
+
+            .event-card {
+                margin: 10px 0;
+            }
+
+            .card-header {
+                padding: 40px 20px;
+            }
+
+            .card-content {
+                padding: 20px;
+            }
+
+            .rsvp-button {
+                padding: 1.2rem 2.5rem;
+                font-size: 1.3rem;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 10px;
+            }
+        }
+
+        .calendar-buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .calendar-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 1.2em;
+            font-family: 'Playfair Display', serif;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 20, 147, 0.3);
+            cursor: pointer;
+            border: none;
+            width: 280px;
+            text-align: center;
+        }
+
+        .calendar-button:hover {
+            background: var(--secondary);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .calendar-button i {
+            margin-right: 10px;
+        }
+
+        /* Mobile Styles - Add these media queries at the end of your CSS file */
+        @media (max-width: 768px) {
+
+            /* Card Container */
+            .card-container {
+                margin: 10px;
+                border-radius: 15px;
+            }
+
+            /* Header Section */
+            .card-header {
+                padding: 30px 15px;
+            }
+
+            .profile-circle {
+                width: 150px;
+                height: 150px;
+                margin: 0 auto 15px;
+                border: 3px solid var(--gold);
+            }
+
+            .names {
+                font-size: 2.8em;
+                margin-bottom: 15px;
+            }
+
+            .invitation-text {
+                font-size: 1.1em;
+                margin-bottom: 20px;
+                padding: 0 10px;
+            }
+
+            /* Content Section */
+            .card-content {
+                padding: 20px 15px;
+            }
+
+            /* Date Section */
+            .date-section {
+                margin: 25px 10px;
+                padding: 20px 15px;
+            }
+
+            .date-title {
+                font-size: 1.8em;
+                margin-bottom: 15px;
+            }
+
+            /* Events Section */
+            .events-section {
+                flex-direction: column;
+                gap: 20px;
+                margin: 25px 10px;
+            }
+
+            .event-card {
+                margin: 0;
+                padding: 20px;
+            }
+
+            .event-title {
+                font-size: 1.5em;
+                margin-bottom: 10px;
+            }
+
+            .event-time {
+                font-size: 1.1em;
+            }
+
+            /* Calendar Buttons */
+            .calendar-buttons {
+                gap: 12px;
+                margin: 25px 10px;
+            }
+
+            .calendar-button {
+                width: 100%;
+                max-width: 250px;
+                padding: 12px 25px;
+                font-size: 1.1em;
+            }
+
+            /* RSVP Button */
+            .rsvp-button {
+                padding: 12px 35px;
+                font-size: 1.1em;
+                margin: 20px 0;
+                width: 80%;
+                max-width: 250px;
+            }
+
+            /* Venue Section */
+            .venue-section {
+                margin: 25px 10px;
+                padding: 25px 15px;
+            }
+
+            .venue-title {
+                font-size: 1.5em;
+                margin-bottom: 12px;
+            }
+
+            .venue-address {
+                font-size: 1.1em;
+                padding: 0 10px;
+            }
+        }
+
+        .bubble:nth-child(1) {
+            left: 10%;
+            animation-delay: 0.2s;
+            width: 30px;
+            height: 30px;
+        }
+
+        .bubble:nth-child(2) {
+            left: 20%;
+            animation-delay: 3.5s;
+            width: 25px;
+            height: 25px;
+        }
+
+        .bubble:nth-child(3) {
+            left: 35%;
+            animation-delay: 2.8s;
+            width: 35px;
+            height: 35px;
+        }
+
+        .bubble:nth-child(4) {
+            left: 45%;
+            animation-delay: 1.5s;
+            width: 20px;
+            height: 20px;
+        }
+
+        .bubble:nth-child(5) {
+            left: 55%;
+            animation-delay: 4s;
+            width: 45px;
+            height: 45px;
+        }
+
+        .bubble:nth-child(6) {
+            left: 65%;
+            animation-delay: 2s;
+            width: 28px;
+            height: 28px;
+        }
+
+        .bubble:nth-child(7) {
+            left: 75%;
+            animation-delay: 3s;
+            width: 32px;
+            height: 32px;
+        }
+
+        .bubble:nth-child(8) {
+            left: 85%;
+            animation-delay: 1s;
+            width: 38px;
+            height: 38px;
+        }
+
+        .bubble:nth-child(9) {
+            left: 90%;
+            animation-delay: 4.5s;
+            width: 22px;
+            height: 22px;
+        }
+
+        .bubble:nth-child(10) {
+            left: 25%;
+            animation-delay: 5s;
+            width: 42px;
+            height: 42px;
+        }
+
+        .bubble:nth-child(11) {
+            left: 15%;
+            animation-delay: 5.5s;
+            width: 27px;
+            height: 27px;
+        }
+
+        .bubble:nth-child(12) {
+            left: 40%;
+            animation-delay: 6s;
+            width: 33px;
+            height: 33px;
+        }
+
+        .bubble:nth-child(13) {
+            left: 70%;
+            animation-delay: 6.5s;
+            width: 36px;
+            height: 36px;
+        }
+
+        .bubble:nth-child(14) {
+            left: 80%;
+            animation-delay: 7s;
+            width: 24px;
+            height: 24px;
+        }
+
+        .bubble:nth-child(15) {
+            left: 50%;
+            animation-delay: 7.5s;
+            width: 40px;
+            height: 40px;
+        }
+
+        .bubble:nth-child(16) {
+            left: 30%;
+            animation-delay: 8s;
+            width: 29px;
+            height: 29px;
+        }
+
+        .bubble:nth-child(17) {
+            left: 60%;
+            animation-delay: 8.5s;
+            width: 34px;
+            height: 34px;
+        }
+
+        .bubble:nth-child(18) {
+            left: 95%;
+            animation-delay: 9s;
+            width: 26px;
+            height: 26px;
+        }
+
+        .bubble:nth-child(19) {
+            left: 5%;
+            animation-delay: 9.5s;
+            width: 31px;
+            height: 31px;
+        }
+
+        .bubble:nth-child(20) {
+            left: 85%;
+            animation-delay: 10s;
+            width: 37px;
+            height: 37px;
+        }
+
+        .bubble::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 80%;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            filter: blur(4px);
+        }
+
+        /* Mobile optimization for bubbles */
+        @media (max-width: 768px) {
+            .bubble {
+                transform-origin: center bottom;
+            }
+
+            /* Reduce number of bubbles on mobile */
+            .bubble:nth-child(n+11) {
+                display: none;
+            }
+        }
+
+        /* Small Mobile Devices */
+        @media (max-width: 380px) {
+            .names {
+                font-size: 2.5em;
+            }
+
+            .invitation-text {
+                font-size: 1em;
+            }
+
+            .calendar-button {
+                font-size: 1em;
+                padding: 10px 20px;
+            }
+
+            .rsvp-button {
+                font-size: 1em;
+                padding: 10px 30px;
+            }
+
+            .event-title {
+                font-size: 1.3em;
+            }
+
+            .venue-address {
+                font-size: 1em;
+            }
+        }
+
+        /* Profile Circle */
+        .profile-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 20px;
+            border: 5px solid var(--gold);
+        }
+
+        .profile-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @keyframes rise {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: translateY(-100vh) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* Bubble Container */
+        .bubbles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Individual Bubbles */
+        .bubble {
+            position: absolute;
+            bottom: -100px;
+            width: 40px;
+            height: 40px;
+            /* Updated gradient colors to match wedding theme */
+            background: linear-gradient(to right,
+                    rgba(255, 215, 0, 0.2),
+                    /* Gold color */
+                    rgba(255, 20, 147, 0.15)
+                    /* Pink color */
+                );
+            border-radius: 50%;
+            animation: rise 15s infinite;
+            opacity: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card-container">
+        
+        <div class="card-header">
+            <div class="profile-circle">
+                <img src="logo.jpg" alt="Janaka & Jamuna" />
+            </div>
+            <h1 class="names">Janaka & Jamuna</h1>
+            <p class="invitation-text">Request the pleasure of your company<br>as they begin their new life together</p>
+        </div>
+
+        <div class="card-content">
+            <div class="date-section">
+                <h2 class="date-title">Save the Date</h2>
+                <p class="date-details">March 9th, 2025</p>
+            </div>
+
+            <div class="countdown-section">
+                <h2 class="date-title">Countdown to Our Big Day</h2>
+                <div class="countdown-container">
+                    <div class="countdown-item">
+                        <div id="days" class="countdown-number">0</div>
+                        <div class="countdown-label">Days</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div id="hours" class="countdown-number">0</div>
+                        <div class="countdown-label">Hours</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div id="minutes" class="countdown-number">0</div>
+                        <div class="countdown-label">Minutes</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div id="seconds" class="countdown-number">0</div>
+                        <div class="countdown-label">Seconds</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="events-section">
+                <div class="event-card">
+                    <h3 class="event-title">Reception</h3>
+                    <p class="event-time">March 8th, 2025<br>6:00 PM onwards</p>
+                </div>
+
+                <div class="event-card">
+                    <h3 class="event-title">Wedding Ceremony</h3>
+                    <p class="event-time">March 9th, 2025<br>5:00 AM - 6:00 AM</p>
+                </div>
+            </div>
+            <div class="calendar-buttons">
+                <button class="calendar-button" onclick="addToGoogleCalendar()">
+                    <i class="fab fa-google"></i> Add to Google Calendar
+                </button>
+                <button class="rsvp-button" onclick="openGoogleMaps()">View Venue Location</button>
+
+                <div class="venue-section">
+                    <h3 class="venue-title">Venue</h3>
+                    <p class="venue-address">Sripathy Mahal<br>Mullamparappu, Poondurai Road<br>Erode</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Calendar Modal -->
+        <div id="reminderModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2 class="modal-header">Add to Calendar</h2>
+                <div id="calendarOptions"></div>
+            </div>
+        </div>
+
+        <script>
+
+            // Intersection Observer for animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = "1";
+                        entry.target.style.transform = "translateY(0)";
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            // Observe elements
+            document.querySelectorAll('.event-card, .date-section, .venue-section').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Modal Functions
+            const modal = document.getElementById("reminderModal");
+            const calendarOptions = document.getElementById("calendarOptions");
+
+            function openModal() {
+                modal.style.display = "flex";
+                initializeCalendarOptions();
+            }
+
+            function closeModal() {
+                modal.style.display = "none";
+            }
+
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    closeModal();
+                }
+            }
+
+            // Helper function to detect mobile devices
+            function addToGoogleCalendar() {
+    const eventDetails = {
+        title: "Janaka & Jamuna's Wedding",
+        description: "Wedding Ceremony followed by Reception",
+        location: "Sripathy Mahal, Mullamparappu, Poondurai Road, Erode",
+        // Note: Month is 0-based, so 2 = March
+        startDate: new Date(2025, 2, 9, 5, 0).toISOString().replace(/-|:|\.\d+/g, ''),
+        endDate: new Date(2025, 2, 9, 6, 0).toISOString().replace(/-|:|\.\d+/g, '')
+    };
+
+    // Using the mobile-friendly format for Google Calendar
+    const googleCalendarUrl = `https://www.google.com/calendar/event?action=TEMPLATE&text=${encodeURIComponent(eventDetails.title)}&dates=${eventDetails.startDate}/${eventDetails.endDate}&details=${encodeURIComponent(eventDetails.description)}&location=${encodeURIComponent(eventDetails.location)}`;
+
+    window.location.href = googleCalendarUrl;
+}
+
+function openGoogleMaps() {
+            const venue = "Sripathy+Mahal+Mullamparappu+Poondurai+Road+Erode";
+            const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${venue}`;
+            window.open(mapsUrl, '_blank');
+        }
+        
+function addToPhoneCalendar() {
+    // Format dates for calendar (YYYYMMDDTHHMMSS)
+    const formatDate = (date) => {
+        return date.replace(/[-:]/g, '').replace(/\.\d+/, '');
+    };
+
+    const eventDetails = {
+        title: "Janaka & Jamuna's Wedding",
+        description: "Wedding Ceremony followed by Reception",
+        location: "Sripathy Mahal, Mullamparappu, Poondurai Road, Erode",
+        startDate: "20250309T050000",
+        endDate: "20250309T060000"
+    };
+
+    // Create webcal protocol URL
+    const icsContent = `BEGIN:VCALENDAR
+VERSION:2.0
+BEGIN:VEVENT
+SUMMARY:${eventDetails.title}
+DESCRIPTION:${eventDetails.description}
+LOCATION:${eventDetails.location}
+DTSTART:${eventDetails.startDate}
+DTEND:${eventDetails.endDate}
+END:VEVENT
+END:VCALENDAR`;
+
+    // For iOS devices
+    if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+        window.location.href = "webcal://" + window.location.host + "/download.ics";
+        
+        // Fallback: create and trigger download
+        setTimeout(() => {
+            const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+            window.location.href = window.URL.createObjectURL(blob);
+        }, 100);
+    } 
+    // For Android devices
+    else if (/android/i.test(navigator.userAgent)) {
+        const base64Content = btoa(icsContent);
+        window.location.href = `content://com.android.calendar/events?${encodeURIComponent(base64Content)}`;
+        
+        // Fallback if direct intent doesn't work
+        setTimeout(() => {
+            const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+            window.location.href = window.URL.createObjectURL(blob);
+        }, 100);
+    }
+    // Desktop fallback
+    else {
+        const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+        const link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.setAttribute('download', 'wedding_invitation.ics');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+}
+function updateCountdown() {
+            const weddingDate = new Date('March 9, 2025 05:00:00').getTime();
+            
+            function update() {
+                const now = new Date().getTime();
+                const distance = weddingDate - now;
+
+                // Time calculations
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                // Update the HTML
+                document.getElementById('days').textContent = days;
+                document.getElementById('hours').textContent = hours;
+                document.getElementById('minutes').textContent = minutes;
+                document.getElementById('seconds').textContent = seconds;
+
+                // If countdown is over
+                if (distance < 0) {
+                    clearInterval(countdownInterval);
+                    document.getElementById('days').textContent = '0';
+                    document.getElementById('hours').textContent = '0';
+                    document.getElementById('minutes').textContent = '0';
+                    document.getElementById('seconds').textContent = '0';
+                }
+            }
+
+            // Initial call
+            update();
+            // Update every second
+            const countdownInterval = setInterval(update, 1000);
+        }
+
+        // Start the countdown when the page loads
+        document.addEventListener('DOMContentLoaded', updateCountdown);
+// Add this function to handle universal calendar addition
+function addToCalendar() {
+    // Detect device
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    const isAndroid = /android/i.test(navigator.userAgent);
+
+    if (isIOS || isAndroid) {
+        addToPhoneCalendar();
+    } else {
+        addToGoogleCalendar();
+    }
+}
+            // RSVP Handler
+            document.querySelector('.rsvp-button').addEventListener('click', function (e) {
+                e.preventDefault();
+                alert('RSVP functionality will be implemented based on your requirements');
+            });
+
+            // Mobile Touch Events
+            let touchStartY = 0;
+            let touchEndY = 0;
+
+            document.addEventListener('touchstart', function (e) {
+                touchStartY = e.changedTouches[0].screenY;
+            }, false);
+
+            document.addEventListener('touchend', function (e) {
+                touchEndY = e.changedTouches[0].screenY;
+                handleSwipe();
+            }, false);
+
+            function handleSwipe() {
+                const sensitivity = 50;
+                const swipeDistance = touchEndY - touchStartY;
+
+                if (Math.abs(swipeDistance) > sensitivity) {
+                    // Add custom swipe handling if needed
+                }
+            }
+
+            // Lazy Loading
+            document.addEventListener('DOMContentLoaded', function () {
+                const images = document.querySelectorAll('img');
+                images.forEach(img => {
+                    img.setAttribute('loading', 'lazy');
+                });
+            });
+
+            // Add smooth scroll behavior
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Handle mobile touch events
+
+            document.addEventListener('touchstart', function (e) {
+                touchStartY = e.changedTouches[0].screenY;
+            }, false);
+
+            document.addEventListener('touchend', function (e) {
+                touchEndY = e.changedTouches[0].screenY;
+                handleSwipe();
+            }, false);
+
+            function handleSwipe() {
+                const sensitivity = 50; // minimum distance for swipe
+                const swipeDistance = touchEndY - touchStartY;
+
+                if (Math.abs(swipeDistance) > sensitivity) {
+                    // Add custom swipe handling if needed
+                }
+            }
+
+            // Add preloader
+            window.addEventListener('load', function () {
+                const body = document.body;
+                body.classList.add('loaded');
+            });
+        </script>
+</body>
+
+</html>
