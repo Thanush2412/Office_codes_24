@@ -1,0 +1,13 @@
+{
+  "name": "electron-notification-app",
+  "version": "1.0.0",
+  "description": "A simple Electron app to track running apps and show notifications",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^22.0.0",
+    "ps-list": "^7.1.0"
+  }
+}
