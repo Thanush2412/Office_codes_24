@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>To-Do List with Hourly Alarm</h1>
+
+    <!-- Search bar to filter tasks -->
+    <input type="text" id="searchInput" placeholder="Search tasks" class="input-search">
+    <button id="exportButton" class="task-button">Export to CSV</button>
+
+    <!-- Task input section -->
+    <div id="taskInputContainer">
+        <input type="text" id="taskInput" placeholder="Enter task" class="task-input">
+        <select id="prioritySelect" class="task-priority">
+            <option value="Low">Low</option>
+            <option value="Medium" selected>Medium</option>
+            <option value="High">High</option>
+        </select>
+        <input type="date" id="dueDateInput" class="task-date">
+
+        <!-- Updated Category Dropdown -->
+        <label for="categorySelect">Category:</label>
+        <select id="categorySelect" class="task-category">
+            <option value="Campaign">Campaign</option>
+            <option value="Learning">Learning</option>
+            <option value="Content">Content</option>
+            <option value="Social Media">Social Media</option>
+            <option value="Presales">Presales</option>
+        </select>
+    </div>
+    
+    <!-- Buttons for adding and clearing tasks -->
+    <div id="buttonContainer">
+        <button id="addTaskButton" class="task-button">Add Task</button>
+        <button id="clearTasksButton" class="task-button">Clear Tasks</button>
+    </div>
+
+    <!-- Task History -->
+    <button id="historyButton" class="history-button">Show History</button>
+
+    <!-- Task list -->
+    <ul id="taskList"></ul>
+
+    <!-- Alarm button -->
+    <button id="alarmButton" class="alarm-button">Start Alarm</button>
+
+    <div id="countdownDisplay"></div>
+
+    <!-- Login/Logout Section -->
+    <div id="loginContainer">
+        <button id="loginBtn" class="login-button">Login</button>
+        <button id="logoutBtn" class="logout-button" disabled>Logout</button> <!-- Initially disabled -->
+        <p id="loginTime">Not logged in</p>
+        <p id="logoutTime">Not logged out</p>
+    </div>
+
+
+    <script src="renderer.js"></script>
+</body>
+</html>

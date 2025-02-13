@@ -1,0 +1,56 @@
+{
+  "name": "todo24",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win"
+  },
+  "keywords": [],
+  "author": "Thanush K",
+  "license": "MIT",
+  "description": "A simple Todo list app.",
+  "devDependencies": {
+    "electron": "^34.0.1",
+    "electron-builder": "^24.9.1"
+  },
+  "dependencies": {
+    "jsonfile": "^6.1.0",
+    "play-sound": "^1.1.6",
+    "sound-play": "^1.1.0",
+    "xlsx": "^0.18.5"
+  },
+  "build": {
+    "appId": "com.todo24.app",
+    "productName": "Todo24",
+    "files": [
+      "dist/**/*",
+      "index.html",
+      "main.js",
+      "todo-icon-512x512-voha1qns.png",
+      "style.css",
+      "preload.js",
+      "renderer.js",
+      "task.json"
+    ],
+ "win": {
+  "target": "nsis",
+  "icon": "todo-icon-512x512-voha1qns.png",
+  "artifactName": "${productName}-Setup-${version}.${ext}",
+  "requestedExecutionLevel": "requireAdministrator",
+  "publisherName": "Thanush K",
+  "compression": "store",
+  "nsis": {
+    "oneClick": false,
+    "perMachine": true,
+    "installerIcon": "todo-icon-512x512-voha1qns.png",
+    "uninstallerIcon": "todo-icon-512x512-voha1qns.png",
+    "installerHeaderIcon": "todo-icon-512x512-voha1qns.png",
+    "createDesktopShortcut": true,
+    "createStartMenuShortcut": true,
+    "shortcutName": "Todo24",
+    "include": "installer.nsh"
+  }
+}
+  }
+}
