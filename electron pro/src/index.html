@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HackerRank Scraper</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body aria-label="HackerRank Scraper App">
+    <div class="app-container" role="main" aria-label="Main Content">
+        <!-- Floating menu button at bottom left -->
+        <button id="sidebar-toggle" class="sidebar-toggle floating-menu" aria-label="Open menu" tabindex="0" title="Open menu">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <!-- Notification area -->
+        <div class="notification-container"></div>
+        
+        <!-- Modern Floating Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="app-logo">
+                    <i class="fas fa-code"></i>
+                    <span>HackerRank Scraper</span>
+                </div>
+                <div class="app-actions">
+                    <div class="tabs" role="tablist" aria-label="Main Tabs">
+                        <button class="tab-button active" data-tab="leaderboard" role="tab" aria-selected="true" tabindex="0" title="Leaderboard view">
+                            <i class="fas fa-trophy"></i> Leaderboard
+                        </button>
+                        <button class="tab-button" data-tab="comparison" role="tab" aria-selected="false" tabindex="0" title="User comparison view">
+                            <i class="fas fa-users"></i> User Comparison
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Leaderboard Tab -->
+            <div class="tab-content active" id="leaderboard-tab" role="tabpanel" aria-labelledby="Leaderboard Tab">
+                <div class="content-grid">
+                    <!-- Input Section -->
+                    <div class="card input-section" aria-label="Leaderboard Configuration">
+                        <h2><i class="fas fa-trophy"></i> Leaderboard Configuration</h2>
+                        
+                        <div class="form-group">
+                            <div class="input-group">
+                                <label for="leaderboard-url" class="input-label">Leaderboard URL</label>
+                                <div class="input-wrapper">
+                                    <input type="text" id="leaderboard-url" class="input" value="https://www.hackerrank.com/contests/dsa-trainers/leaderboard" placeholder="Enter leaderboard base URL" tabindex="0" aria-label="Leaderboard Base URL" title="Enter the base URL for the leaderboard scraping" autocomplete="off">
+                                </div>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label class="input-label">Page Range</label>
+                                <div class="input-row">
+                                    <div class="input-wrapper">
+                                        <input type="number" id="start-page" class="input" value="1" placeholder="Start Page" tabindex="0" aria-label="Start Page" autocomplete="off">
+                                    </div>
+                                    <span class="separator">to</span>
+                                    <div class="input-wrapper">
+                                        <input type="number" id="end-page" class="input" value="5" placeholder="End Page" tabindex="0" aria-label="End Page" autocomplete="off">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="sleep-time" class="input-label">Page Load Time</label>
+                                <div class="input-wrapper">
+                                    <div class="input-with-unit">
+                                        <input type="number" id="sleep-time" class="input" value="3" min="1" max="10" placeholder="Page Load Time" tabindex="0" aria-label="Page Load Time" autocomplete="off">
+                                        <span class="unit">seconds</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="control-group">
+                            <button id="start-leaderboard" class="btn btn-primary" tabindex="0" aria-label="Start leaderboard scraping" title="Start scraping the leaderboard">
+                                <i class="fas fa-play"></i> Start
+                            </button>
+                            <button id="pause-leaderboard" class="btn btn-warning" disabled tabindex="0" aria-label="Pause leaderboard scraping" title="Pause or resume scraping">
+                                <i class="fas fa-pause"></i> Pause
+                            </button>
+                            <button id="stop-leaderboard" class="btn btn-danger" disabled tabindex="0" aria-label="Stop leaderboard scraping" title="Stop scraping">
+                                <i class="fas fa-stop"></i> Stop
+                            </button>
+                            <button id="export-leaderboard" class="btn btn-success" tabindex="0" aria-label="Export leaderboard results" title="Export leaderboard results">
+                                <i class="fas fa-file-export"></i> Export
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Progress Section -->
+                    <div class="card progress-section">
+                        <div class="progress-info">
+                            <span class="progress-text">Progress</span>
+                            <span class="progress-percentage">0%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+                        <div class="status-text"></div>
+                        <div class="loading-spinner" style="display:none;"></div>
+                        
+                        <div class="table-container">
+                            <div class="table-header">
+                                <h3><i class="fas fa-list-ol"></i> Leaderboard Results</h3>
+                                <div class="table-stats">Total Records: <span class="record-count">0</span></div>
+                            </div>
+                            <div class="table-scroll">
+                                <table id="leaderboard-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Rank</th>
+                                            <th>Hacker Name</th>
+                                            <th>Score</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Comparison Tab -->
+            <div class="tab-content" id="comparison-tab" role="tabpanel" aria-labelledby="Comparison Tab">
+                <div class="content-grid">
+                    <!-- Input Section -->
+                    <div class="card input-section" aria-label="User Comparison Setup">
+                        <h2><i class="fas fa-user-friends"></i> User Comparison Setup</h2>
+                        
+                        <div class="form-group">
+                            <div class="input-group">
+                                <label class="input-label">Upload Data File</label>
+                                <div class="file-input-wrapper">
+                                    <input type="file" id="comparison-file" accept=".xlsx,.xls,.csv" tabindex="0" aria-label="Upload Excel or CSV file" title="Upload a file for user comparison">
+                                    <div class="file-input-button">
+                                        <i class="fas fa-upload"></i> Choose File
+                                    </div>
+                                    <span class="file-name">No file selected</span>
+                                </div>
+                                <div id="file-name-display" class="file-name-display"></div>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="comparison-url" class="input-label">Comparison URL</label>
+                                <div class="input-wrapper">
+                                    <input type="text" id="comparison-url" class="input" value="https://www.hackerrank.com/contests/dsa-trainers/compare" placeholder="Base URL" tabindex="0" aria-label="Comparison Base URL" title="Enter the base URL for user comparison scraping">
+                                </div>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="fixed-username" class="input-label">Fixed Username</label>
+                                <div class="input-wrapper">
+                                    <input type="text" id="fixed-username" class="input" placeholder="Fixed Username (to compare against)" tabindex="0" aria-label="Fixed Username">
+                                </div>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="username-column" class="input-label">Username Column</label>
+                                <div class="input-wrapper">
+                                    <select id="username-column" class="input" disabled tabindex="0" aria-label="Username Column">
+                                        <option value="">Select a file first</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="comparison-sleep-time" class="input-label">Page Load Time</label>
+                                <div class="input-wrapper">
+                                    <div class="input-with-unit">
+                                        <input type="number" id="comparison-sleep-time" class="input" value="3" min="1" max="10" placeholder="Page Load Time" tabindex="0" aria-label="Comparison Page Load Time">
+                                        <span class="unit">seconds</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label class="input-label">Save Location</label>
+                                <div class="input-with-button">
+                                    <span id="comparison-save-path-label" class="path-label">No file selected</span>
+                                    <button id="comparison-save-browse" class="btn btn-secondary" type="button" tabindex="0" aria-label="Browse for save location" title="Browse for save location">
+                                        <i class="fas fa-folder-open"></i> BROWSE
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="control-group">
+                            <button id="start-comparison" class="btn btn-primary" disabled tabindex="0" aria-label="Start user comparison" title="Start user comparison scraping">
+                                <i class="fas fa-play"></i> Start
+                            </button>
+                            <button id="pause-comparison" class="btn btn-warning" disabled tabindex="0" aria-label="Pause user comparison" title="Pause or resume user comparison scraping">
+                                <i class="fas fa-pause"></i> Pause
+                            </button>
+                            <button id="stop-comparison" class="btn btn-danger" disabled tabindex="0" aria-label="Stop user comparison" title="Stop user comparison scraping">
+                                <i class="fas fa-stop"></i> Stop
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Progress Section -->
+                    <div class="card progress-section">
+                        <div class="progress-info">
+                            <span class="progress-text">Progress</span>
+                            <span class="progress-percentage">0%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+                        <div class="status-text"></div>
+                        <div class="loading-spinner" style="display:none;"></div>
+                        
+                        <div class="table-container">
+                            <div class="table-header">
+                                <h3><i class="fas fa-table"></i> Comparison Results</h3>
+                                <div class="table-stats">Processed: <span class="record-count">0</span></div>
+                            </div>
+                            <div class="table-scroll">
+                                <table id="comparison-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Username</th>
+                                            <!-- Dynamic columns will be added here -->
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Modern Sidebar -->
+    <aside id="settings-sidebar" class="settings-sidebar" aria-label="Menu Sidebar" role="complementary" tabindex="0">
+        <div class="sidebar-header">
+            <h2><i class="fas fa-bars"></i> Menu</h2>
+            <button id="sidebar-close" aria-label="Close menu" tabindex="0" title="Close menu sidebar">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="sidebar-content">
+            <div class="sidebar-section">
+                <h3>Settings</h3>
+                <div class="setting-item">
+                    <label class="switch">
+                        <input type="checkbox" id="toggle-notifications-sidebar" checked tabindex="0" aria-label="Enable notifications">
+                        <span class="slider"></span>
+                        <span class="switch-label">Enable Notifications</span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <label for="font-size-range" class="range-label">Font Size</label>
+                    <input type="range" id="font-size-range" min="14" max="22" value="16" tabindex="0" aria-label="Adjust font size">
+                    <span class="range-value">16px</span>
+                </div>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3>Actions</h3>
+                <button id="reset-settings" class="btn btn-warning" tabindex="0">
+                    <i class="fas fa-undo"></i> Reset Settings
+                </button>
+                <button id="open-app-data-folder" class="btn btn-secondary" tabindex="0">
+                    <i class="fas fa-folder-open"></i> Open App Data Folder
+                </button>
+            </div>
+        </div>
+    </aside>
+    
+    <script src="renderer.js"></script>
+</body>
+</html>

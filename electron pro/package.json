@@ -1,0 +1,61 @@
+{
+  "name": "hackerrank-scraper",
+  "version": "1.0.0",
+  "description": "HackerRank Scraper Electron App",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "dist": "electron-builder",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^25.3.1",
+    "electron-builder": "^24.6.3"
+  },
+  "dependencies": {
+    "csv-parser": "^3.0.0",
+    "electron-store": "^8.1.0",
+    "exceljs": "^4.3.0",
+    "json2csv": "^6.0.0-alpha.2",
+    "node-notifier": "^10.0.1",
+    "puppeteer": "^21.0.0"
+  },
+  "build": {
+    "appId": "com.hackerrank.scraper.pro",
+    "productName": "HackerRank Scraper Pro",
+    "copyright": "Copyright © 2024 Your Company",
+    "files": [
+      "src/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ],
+    "asar": true,
+    "asarUnpack": [
+      "node_modules/puppeteer/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "node_modules/puppeteer/.local-chromium",
+        "to": "puppeteer/.local-chromium",
+        "filter": ["**/*"]
+      }
+    ],
+    "win": {
+      "target": "nsis"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "HackerRank Scraper Pro"
+    },
+    "directories": {
+      "output": "dist"
+    }
+  }
+}
