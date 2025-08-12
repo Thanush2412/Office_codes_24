@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LeetCode Scraper</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar sidebar-left" role="navigation" aria-label="Sidebar Navigation">
+      <div class="sidebar-content">
+        <div class="sidebar-logo">
+          <img src="icon.ico" alt="App Logo" width="40" height="40" />
+          <span class="sidebar-app-name">LeetCode Scraper</span>
+        </div>
+        <nav class="sidebar-nav">
+          <button id="profileTabBtn" class="sidebar-tab primary-btn active" aria-controls="profile-tab" aria-selected="true" tabindex="0">
+            <span class="tab-icon">📊</span>
+            <span class="tab-text">Profile</span>
+          </button>
+          <button id="questionsTabBtn" class="sidebar-tab secondary-btn" aria-controls="questions-tab" aria-selected="false" tabindex="0">
+            <span class="tab-icon">❓</span>
+            <span class="tab-text">Questions</span>
+          </button>
+          <button id="settingsTabBtn" class="sidebar-tab secondary-btn" aria-controls="settings-tab" aria-selected="false" tabindex="0">
+            <span class="tab-icon">⚙️</span>
+            <span class="tab-text">Settings</span>
+          </button>
+          <div class="sidebar-spacer"></div>
+        </nav>
+      </div>
+    </aside>
+    
+    <!-- Main Content Area -->
+    <div class="main-area main-area-left">
+      <!-- Content Area -->
+      <div class="content-area">
+        <h1 id="app-title">LeetCode Profile Scraper</h1>
+        
+        <!-- Tab: Profile -->
+        <section class="tab-content" id="profile-tab" aria-labelledby="profileTabBtn" role="tabpanel">
+          <div class="section-grid">
+            <!-- Left Column -->
+            <div>
+              <section class="section" aria-labelledby="file-selection-title">
+                <div class="section-title" id="file-selection-title">File Selection</div>
+                <div class="file-section">
+                  <button id="selectFileBtn" class="primary-btn" aria-label="Select Excel or CSV File">Select Excel/CSV File</button>
+                  <span id="selectedFile" class="text-secondary" aria-live="polite">No file selected</span>
+                </div>
+              </section>
+              <section class="section" aria-labelledby="progress-title">
+                <div class="section-title" id="progress-title">Progress</div>
+                <div class="progress-section">
+                  <div class="progress-bar" aria-label="Progress Bar">
+                    <div id="progressFill" class="progress-fill" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <div id="progressText" class="text-secondary" aria-live="polite">0/0 URLs processed (0%)</div>
+                </div>
+              </section>
+            </div>
+            
+            <!-- Right Column -->
+            <div>
+              <section class="section collapsible" aria-labelledby="settings-title">
+                <div class="section-title">
+                  Settings
+                  <button class="collapse-btn" aria-label="Toggle Settings" aria-expanded="true" data-target="settingsContent">▼</button>
+                </div>
+                <div class="settings-grid" id="settingsContent">
+                  <div class="setting-item">
+                    <label for="columnSelect">URL Column:</label>
+                    <select id="columnSelect" disabled aria-label="URL Column">
+                      <option value="">Select a file first</option>
+                    </select>
+                  </div>
+                </div>
+              </section>
+              <section class="section" aria-labelledby="save-options-title">
+                <div class="section-title" id="save-options-title">Save Options</div>
+                <div class="settings-grid">
+                  <div class="setting-item">
+                    <label for="saveDir">Save Directory:</label>
+                    <div class="input-group">
+                      <span class="input-icon" aria-hidden="true">📁</span>
+                      <input type="text" id="saveDir" value="leetcode_results" aria-label="Save Directory">
+                      <button id="clearSaveDirBtn" class="input-clear-btn" aria-label="Clear directory input">×</button>
+                      <button id="browseDirBtn" class="secondary-btn" aria-label="Browse Save Directory">Browse</button>
+                    </div>
+                  </div>
+                  <div class="setting-item">
+                    <label for="filename">File Name:</label>
+                    <div class="input-group">
+                      <input type="text" id="filename" value="leetcode_results" aria-label="File Name">
+                      <button id="clearFilenameBtn" class="input-clear-btn" aria-label="Clear filename input">×</button>
+                    </div>
+                  </div>
+                  <div class="setting-item">
+                    <label for="saveMethod">Save Format:</label>
+                    <select id="saveMethod" aria-label="Save Method">
+                      <option value="xlsx">Excel (.xlsx)</option>
+                      <option value="csv">CSV (.csv)</option>
+                      <option value="json">JSON (.json)</option>
+                    </select>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </section>
+        
+        <!-- Tab: Questions -->
+        <section class="tab-content" id="questions-tab" aria-labelledby="questionsTabBtn" role="tabpanel" style="display: none;">
+          <div class="section-grid">
+            <!-- Left Column -->
+            <div>
+              <section class="section" aria-labelledby="profile-selection-title">
+                <div class="section-title" id="profile-selection-title">Profile Selection</div>
+                <div class="settings-grid">
+                  <div class="setting-item">
+                    <label for="profileUrl">Profile URL:</label>
+                    <select id="profileUrl" disabled aria-label="Profile URL">
+                      <option value="">Select profile file first</option>
+                    </select>
+                  </div>
+                  <div class="setting-item">
+                    <label for="profileName">Profile Name:</label>
+                    <select id="profileName" disabled aria-label="Profile Name">
+                      <option value="">Select profile file first</option>
+                    </select>
+                  </div>
+                </div>
+              </section>
+            </div>
+            
+            <!-- Right Column -->
+            <div>
+              <section class="section" aria-labelledby="questions-import-title">
+                <div class="section-title" id="questions-import-title">Questions Import</div>
+                <div class="settings-grid">
+                  <div class="setting-item">
+                    <label for="importQuestionsBtn">Questions File:</label>
+                    <button id="importQuestionsBtn" class="primary-btn" aria-label="Import Questions Excel or CSV">Import Questions Excel/CSV</button>
+                    <span id="questionsFileName" class="text-secondary" aria-live="polite">No file selected</span>
+                  </div>
+                  <div class="setting-item">
+                    <label for="questionsColumn">Question Column:</label>
+                    <select id="questionsColumn" disabled aria-label="Question Column">
+                      <option value="">Select questions file first</option>
+                    </select>
+                  </div>
+                </div>
+              </section>
+              <section class="section" aria-labelledby="scoring-title">
+                <div class="section-title" id="scoring-title">Scoring</div>
+                <div class="settings-grid">
+                  <div class="setting-item">
+                    <label for="pointsPerMatch">Points per Match:</label>
+                    <input type="number" id="pointsPerMatch" value="10" min="1" max="100" aria-label="Points per Match">
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+          
+          <!-- Results Section - Full Width -->
+          <section class="section" aria-labelledby="results-title">
+            <div class="section-title" id="results-title">Results</div>
+            <div class="progress-section" id="questionsProgressSection" style="display: none;">
+              <div class="progress-bar" aria-label="Questions Progress Bar">
+                <div id="questionsProgressFill" class="progress-fill" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+              <div id="questionsProgressText" class="text-secondary" aria-live="polite">0/0 profiles processed (0%)</div>
+            </div>
+            <div class="results-container">
+              <div id="profileInfo" class="profile-info" style="display: none;">
+                <span class="profile-info-icon">👤</span>
+                <span class="profile-info-text" id="profileInfoText"></span>
+              </div>
+              
+              <div class="results-wrapper">
+                <div id="questionResults" class="question-results results-default"></div>
+                
+                <div class="results-summary-wrapper">
+                  <div class="results-summary summary-default" id="resultsSummary" style="display: none;">
+                    <div class="results-summary-item">
+                      <div class="results-summary-label">Solved</div>
+                      <div class="results-summary-value" id="solvedCount">0</div>
+                    </div>
+                    <div class="results-summary-item">
+                      <div class="results-summary-label">Total</div>
+                      <div class="results-summary-value" id="totalCount">0</div>
+                    </div>
+                    <div class="results-summary-item">
+                      <div class="results-summary-label">Score</div>
+                      <div class="results-summary-value" id="scoreValue">0</div>
+                    </div>
+                  </div>
+                  
+                  <div id="totalScore" class="total-score score-default" style="display: none;">
+                    <div class="score-label">Total Score:</div>
+                    <div class="score-value" id="scoreText">0 / 0</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </section>
+        
+        <!-- Tab: Settings -->
+        <section class="tab-content" id="settings-tab" aria-labelledby="settingsTabBtn" role="tabpanel" style="display: none;">
+          <div class="section-grid">
+            <div>
+              <section class="section" aria-labelledby="browser-settings-title">
+                <div class="section-title" id="browser-settings-title">Browser Settings</div>
+                <div class="settings-grid">
+                  <div class="setting-item">
+                    <label for="profileHeadlessMode">Headless Mode (Profile):</label>
+                    <label class="switch" aria-label="Profile Headless Mode">
+                      <input type="checkbox" id="profileHeadlessMode" checked>
+                      <span class="slider"></span>
+                    </label>
+                  </div>
+                  <div class="setting-item">
+                    <label for="questionsHeadlessMode">Headless Mode (Questions):</label>
+                    <label class="switch" aria-label="Questions Headless Mode">
+                      <input type="checkbox" id="questionsHeadlessMode" checked>
+                      <span class="slider"></span>
+                    </label>
+                  </div>
+                </div>
+              </section>
+              
+              <section class="section" aria-labelledby="ui-customization-title">
+                <div class="section-title" id="ui-customization-title">UI Customization</div>
+                <div class="settings-grid">
+                  <div class="setting-item">
+                    <label for="themeSelect">Theme:</label>
+                    <select id="themeSelect" aria-label="Theme">
+                      <option value="dark">Dark</option>
+                      <option value="light">Light</option>
+                    </select>
+                  </div>
+                  <div class="setting-item">
+                    <label for="accentColorPicker">Accent Color:</label>
+                    <input type="color" id="accentColorPicker" value="#6366f1" aria-label="Accent Color">
+                  </div>
+                  <div class="setting-item">
+                    <label for="fontSizeSelect">Font Size:</label>
+                    <select id="fontSizeSelect" aria-label="Font Size">
+                      <option value="small">Small</option>
+                      <option value="medium">Medium</option>
+                      <option value="large">Large</option>
+                    </select>
+                  </div>
+                  <div class="setting-item">
+                    <label for="sidebarPositionSelect">Sidebar Position:</label>
+                    <select id="sidebarPositionSelect" aria-label="Sidebar Position">
+                      <option value="left">Left</option>
+                      <option value="right">Right</option>
+                      <option value="top">Top</option>
+                      <option value="bottom">Bottom</option>
+                    </select>
+                  </div>
+                  <div class="setting-item">
+                    <label for="layoutStyleSelect">Layout Style:</label>
+                    <select id="layoutStyleSelect" aria-label="Layout Style">
+                      <option value="default">Default</option>
+                      <option value="compact">Compact</option>
+                      <option value="spacious">Spacious</option>
+                      <option value="minimal">Minimal</option>
+                    </select>
+                  </div>
+                  <div class="setting-item">
+                    <label for="buttonStyleSelect">Button Style:</label>
+                    <select id="buttonStyleSelect" aria-label="Button Style">
+                      <option value="default">Default</option>
+                      <option value="rounded">Rounded</option>
+                      <option value="outlined">Outlined</option>
+                      <option value="flat">Flat</option>
+                    </select>
+                  </div>
+                  <div class="setting-item">
+                    <label for="resultContainerStyleSelect">Result Container Style:</label>
+                    <select id="resultContainerStyleSelect" aria-label="Result Container Style">
+                      <option value="default">Default</option>
+                      <option value="card">Card</option>
+                      <option value="list">List</option>
+                      <option value="grid">Grid</option>
+                    </select>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </section>
+      </div>
+      
+      <!-- Log Panel -->
+      <div class="log-panel">
+        <div class="log-panel-header">
+          <div class="log-panel-title">Activity Log</div>
+          <div class="log-tabs">
+            <button class="log-tab active" data-log-tab="profile">Profile</button>
+            <button class="log-tab" data-log-tab="questions">Questions</button>
+          </div>
+        </div>
+        <div class="log-panel-content">
+          <div id="profileLogSection" class="log-section active">
+            <div class="log-section-header">
+              <div class="log-section-title">Profile Activity</div>
+              <button class="clear-log-btn" data-log-tab="profile">Clear</button>
+            </div>
+            <div class="log-entries"></div>
+          </div>
+          <div id="questionLogSection" class="log-section" style="display: none;">
+            <div class="log-section-header">
+              <div class="log-section-title">Questions Activity</div>
+              <button class="clear-log-btn" data-log-tab="questions">Clear</button>
+            </div>
+            <div class="log-entries"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Sticky Controls -->
+    <div class="sticky-controls">
+      <section class="section">
+        <div class="controls" id="profileControls">
+          <button id="startBtn" class="primary-btn" disabled>Start</button>
+          <button id="pauseBtn" class="secondary-btn" disabled>Pause</button>
+          <button id="stopBtn" class="danger-btn" disabled>Stop</button>
+          <span id="autoSaveStatus">Auto-save</span>
+        </div>
+        <div class="controls" id="questionsControls" style="display: none;">
+          <button id="checkQuestionsBtn" class="primary-btn" disabled aria-label="Check Questions" data-tooltip="Check questions for selected profiles">Check Questions</button>
+          <button id="pauseQuestionsBtn" class="secondary-btn" style="display: none;" aria-label="Pause">Pause</button>
+          <button id="resumeQuestionsBtn" class="secondary-btn" style="display: none;" aria-label="Resume">Resume</button>
+          <button id="stopQuestionsBtn" class="danger-btn" style="display: none;" aria-label="Stop">Stop</button>
+          <button id="resetQuestionsBtn" class="secondary-btn" style="display: none;" aria-label="Reset">Reset</button>
+        </div>
+      </section>
+    </div>
+  </div>
+  
+  <!-- JS Scripts -->
+  <script src="renderer.js"></script>
+  <script>
+    // Tab switching logic
+    document.getElementById('profileTabBtn').onclick = function () {
+      // Remove active class from all sidebar tabs
+      document.querySelectorAll('.sidebar-tab').forEach(tab => {
+        tab.classList.remove('active');
+      });
+      
+      // Add active class to current tab
+      this.classList.add('active');
+      
+      // Update app title
+      document.getElementById('app-title').textContent = 'LeetCode Profile Scraper';
+      
+      document.getElementById('profile-tab').style.display = 'block';
+      document.getElementById('questions-tab').style.display = 'none';
+      document.getElementById('settings-tab').style.display = 'none';
+      this.setAttribute('aria-selected', 'true');
+      document.getElementById('questionsTabBtn').setAttribute('aria-selected', 'false');
+      document.getElementById('settingsTabBtn').setAttribute('aria-selected', 'false');
+      
+      // Show profile controls and hide others
+      document.getElementById('profileControls').style.display = 'flex';
+      document.getElementById('questionsControls').style.display = 'none';
+      
+      // Show profile log tab
+      document.querySelector('.log-tab[data-log-tab="profile"]').click();
+    };
+    
+    document.getElementById('questionsTabBtn').onclick = function () {
+      // Remove active class from all sidebar tabs
+      document.querySelectorAll('.sidebar-tab').forEach(tab => {
+        tab.classList.remove('active');
+      });
+      
+      // Add active class to current tab
+      this.classList.add('active');
+      
+      // Update app title
+      document.getElementById('app-title').textContent = 'LeetCode Question Checker';
+      
+      document.getElementById('profile-tab').style.display = 'none';
+      document.getElementById('questions-tab').style.display = 'block';
+      document.getElementById('settings-tab').style.display = 'none';
+      this.setAttribute('aria-selected', 'true');
+      document.getElementById('profileTabBtn').setAttribute('aria-selected', 'false');
+      document.getElementById('settingsTabBtn').setAttribute('aria-selected', 'false');
+      
+      // Show questions controls and hide others
+      document.getElementById('profileControls').style.display = 'none';
+      document.getElementById('questionsControls').style.display = 'flex';
+      
+      // Show questions log tab
+      document.querySelector('.log-tab[data-log-tab="questions"]').click();
+    };
+    
+    document.getElementById('settingsTabBtn').onclick = function () {
+      // Remove active class from all sidebar tabs
+      document.querySelectorAll('.sidebar-tab').forEach(tab => {
+        tab.classList.remove('active');
+      });
+      
+      // Add active class to current tab
+      this.classList.add('active');
+      
+      // Update app title
+      document.getElementById('app-title').textContent = 'Settings';
+      
+      document.getElementById('profile-tab').style.display = 'none';
+      document.getElementById('questions-tab').style.display = 'none';
+      document.getElementById('settings-tab').style.display = 'block';
+      this.setAttribute('aria-selected', 'true');
+      document.getElementById('profileTabBtn').setAttribute('aria-selected', 'false');
+      document.getElementById('questionsTabBtn').setAttribute('aria-selected', 'false');
+      
+      // Hide all controls
+      document.getElementById('profileControls').style.display = 'none';
+      document.getElementById('questionsControls').style.display = 'none';
+    };
+    
+    // Log tab switching
+    document.querySelectorAll('.log-tab').forEach(tab => {
+      tab.addEventListener('click', function() {
+        // Update active tab
+        document.querySelectorAll('.log-tab').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+        
+        // Show corresponding log section
+        const logType = this.getAttribute('data-log-tab');
+        document.querySelectorAll('.log-section').forEach(section => {
+          section.style.display = section.id === `${logType}LogSection` ? 'flex' : 'none';
+        });
+      });
+    });
+    
+    // Clear log buttons
+    document.querySelectorAll('.clear-log-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const logType = this.getAttribute('data-log-tab');
+        const logSection = document.getElementById(`${logType}LogSection`);
+        const logEntries = logSection.querySelector('.log-entries');
+        if (logEntries) {
+          logEntries.innerHTML = '';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
